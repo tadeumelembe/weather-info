@@ -90,7 +90,7 @@ export default function WeatherCharts(props) {
         <div style={{ maxWidth: '100%', width: '90%' }} className="row">
 
             <div className="col-12 w-full">
-                <h5>Gráfico da taxa de variação da temperatura</h5>
+                <h5>Temperature change rate graph</h5>
             </div>
             {loading ?
                 <>

@@ -46,7 +46,7 @@ export default function Weather() {
     const getWeather = () => {
         setLoadingWeather(true)
         api
-            .get(`/onecall?lat=${lat}&lon=${lng}&exclude=hourly,minutely,alerts&appid=${process.env.REACT_APP_OPEN_API_KEY}&units=metric&lang=pt`)
+            .get(`/onecall?lat=${lat}&lon=${lng}&exclude=hourly,minutely,alerts&appid=${process.env.REACT_APP_OPEN_API_KEY}&units=metric&lang=en`)
             .then((response) => {
                 
                 if (response.status === 200) {
@@ -101,7 +101,7 @@ export default function Weather() {
                                 <Container className="mx-auto">
                                     <div className="mx-auto text-center">
                                         <h2>{address}</h2>
-                                        <p style={{ fontSize: 20 }}>Actualizado à {convertTimestamp(weatherInfo.current.dt)}</p>
+                                        <p style={{ fontSize: 20 }}>Last update: {convertTimestamp(weatherInfo.current.dt)}</p>
 
                                         <span style={{ fontSize: 60 }}>
                                             {weatherInfo.current.temp}
@@ -110,15 +110,15 @@ export default function Weather() {
                                         <p style={{ textTransform: 'capitalize', fontSize: 20 }}>{weatherInfo.current.weather[0].description}</p>
                                         <div style={{ fontSize: 18 }} className="row w-75 mx-auto">
                                             <div className="col-sm-12 col-md-4">
-                                                <span style={{ fontWeight: 500 }}>Humidade: </span>
+                                                <span style={{ fontWeight: 500 }}>Humidity: </span>
                                                 {weatherInfo.current.humidity} %
                                             </div>
                                             <div className="col-sm-12 col-md-4">
-                                                <span style={{ fontWeight: 500 }}>Visibilidade: </span>
+                                                <span style={{ fontWeight: 500 }}>Visibility: </span>
                                                 {Number(weatherInfo.current.visibility) / 1000} km
                                             </div>
                                             <div className="col-sm-12 col-md-4">
-                                                <span style={{ fontWeight: 500 }}>Vento: </span>
+                                                <span style={{ fontWeight: 500 }}>Wind: </span>
                                                 {(Number(weatherInfo.current.wind_speed) * 3.6).toFixed(2)} km/h
                                             </div>
                                         </div>
@@ -139,7 +139,7 @@ export default function Weather() {
 
 
                                 <div className="mx-auto text-center">
-                                    <h2>Sem informação disponível</h2>
+                                    <h2>No information available at the moment</h2>
                                 </div>
 
                             </Container>

@@ -91,9 +91,9 @@ export default function DailyWeather(props) {
                         }
                     }}
                 >
-                    <Tab label="Diário" {...a11yProps(0)} />
-                    <Tab label="Gráfico" {...a11yProps(1)} />
-                    <Tab label="Mapa" {...a11yProps(2)} />
+                    <Tab label="Daily" {...a11yProps(0)} />
+                    <Tab label="Graph" {...a11yProps(1)} />
+                    <Tab label="Map" {...a11yProps(2)} />
                 </Tabs>
             </AppBar>
             <TabPanel value={value} index={0}>

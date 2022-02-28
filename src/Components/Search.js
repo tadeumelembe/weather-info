@@ -56,8 +56,8 @@ export default function Search() {
 
             places.forEach(place => {
                 if (place.geometry) {
-                    console.log('lat', place.geometry.location.lat())
-                    console.log('lng', place.geometry.location.lng())
+                    // console.log('lat', place.geometry.location.lat())
+                    // console.log('lng', place.geometry.location.lng())
                     let coordinates = {
                         lat: place.geometry.location.lat(),
                         lng: place.geometry.location.lng()
