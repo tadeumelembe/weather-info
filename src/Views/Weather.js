@@ -4,7 +4,7 @@ import { create } from 'apisauce'
 import { Row, Col, Spinner, Container } from 'react-bootstrap';
 import DailyWeather from '../Components/DailyWeather'
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
-import Search from '../Components/Search';
+
 const api = create({
     baseURL: 'https://api.openweathermap.org/data/2.5',
     headers: { Accept: 'application/vnd.github.v3+json' },
@@ -34,7 +34,7 @@ export default function Weather() {
         } else if (hh === 12) {
             h = 12;
             ampm = 'PM';
-        } else if (hh == 0) {
+        } else if (hh === 0) {
             h = 12;
         }
 
@@ -46,10 +46,10 @@ export default function Weather() {
     const getWeather = () => {
         setLoadingWeather(true)
         api
-            .get(`/onecall?lat=${lat}&lon=${lng}&exclude=hourly,minutely,alerts&appid=41dd22a7dd63c54afb6b91e5144b8c63&units=metric&lang=pt`)
+            .get(`/onecall?lat=${lat}&lon=${lng}&exclude=hourly,minutely,alerts&appid=${process.env.REACT_APP_OPEN_API_KEY}&units=metric&lang=pt`)
             .then((response) => {
-                console.log(response.data.daily)
-                if (response.status = '200') {
+                
+                if (response.status === 200) {
                     setWeatherInfo(response.data)
                 } else {
                     setWeatherInfo('')
@@ -71,9 +71,9 @@ export default function Weather() {
                 <Container className="px-5 py-2">
                     <Row className="justify-content-center w-full">
                         <Col xs={12} sm={12} md={6} className="d-flex">
-                        <Link style={{textDecoration:'none'}} to="/about"><ArrowBackIcon style={{color:'#fff',fontSize:40}}/></Link>
+                            <Link style={{ textDecoration: 'none' }} to="/about"><ArrowBackIcon style={{ color: '#fff', fontSize: 40 }} /></Link>
 
-                            
+
                         </Col>
                         <Col xs={12} sm={12} md={6} className="text-left mr-0">
                             <h1 className="text-white d-none">Weater</h1>
@@ -126,7 +126,7 @@ export default function Weather() {
 
 
                                     <div className="pt-5">
-                                       <DailyWeather dailyWeather={weatherInfo.daily}/>
+                                        <DailyWeather dailyWeather={weatherInfo.daily} />
                                     </div>
 
                                 </Container>

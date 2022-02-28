@@ -1,11 +1,10 @@
-import React, { useEffect } from 'react'
-import { Chart } from "react-google-charts";
-import { Spinner } from 'react-bootstrap';
+import React, { useEffect, useState } from 'react'
+import { Spinner, Container } from 'react-bootstrap';
 
 
 export default function WeatherCharts(props) {
-    console.log('-----------------------')
-    console.log(props.weather)
+
+    const [loading, setLoading] = useState(true)
 
     function initGoogleScripts() {
         return new Promise(resolve => {
@@ -41,24 +40,11 @@ export default function WeatherCharts(props) {
 
     function convertTimestamp(timestamp) {
         var d = new Date(timestamp * 1000),
-            yyyy = d.getFullYear(),
             mm = ('0' + (d.getMonth() + 1)).slice(-2),
             dd = ('0' + d.getDate()).slice(-2),
-            hh = d.getHours(),
-            h = hh,
-            min = ('0' + d.getMinutes()).slice(-2),
-            ampm = 'AM',
             time;
 
-        if (hh > 12) {
-            h = hh - 12;
-            ampm = 'PM';
-        } else if (hh === 12) {
-            h = 12;
-            ampm = 'PM';
-        } else if (hh == 0) {
-            h = 12;
-        }
+
 
         time = dd + '/' + mm;
         return time;
@@ -93,7 +79,7 @@ export default function WeatherCharts(props) {
                     title: 'Temperatura (Celsius)'
                 }
             };
-
+            setLoading(false)
             var chart = new window.google.visualization.LineChart(document.getElementById('chart_div'));
 
             chart.draw(data, options);
@@ -106,9 +92,21 @@ export default function WeatherCharts(props) {
             <div className="col-12 w-full">
                 <h5>Gráfico da taxa de variação da temperatura</h5>
             </div>
-            <div className="col-12 w-full mx-auto text-center">
-                <div className="mx-auto" id="chart_div" style={{ height: 400 }}></div>
-            </div>
+            {loading ?
+                <>
+                    <Container className="mx-auto pt-5">
+                        <div className="mx-auto text-center">
+                            <Spinner animation="border" style={{ width: '3rem', height: '3rem' }} role="status">
+                                <span className="visually-hidden">Loading...</span>
+                            </Spinner>
+                        </div>
+                    </Container>
+
+                </> :
+                <div className="col-12 w-full mx-auto text-center">
+                    <div className="mx-auto" id="chart_div" style={{ height: 400 }}></div>
+                </div>
+            }
         </div>
     )
 }

@@ -2,13 +2,11 @@ import React, { useState, useEffect } from 'react'
 import { useHistory } from "react-router-dom";
 import SearchIcon from '@material-ui/icons/Search';
 
-const googleMapKey = process.env.GOOGLE_API_KEY
-
 function initGoogleScripts() {
     return new Promise(resolve => {
         const script = document.createElement('script')
         const body = document.getElementsByTagName('head')[0]
-        script.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyBOmbgpcRJXTRLaF0YVwXHFPxSmCbGf7lA&libraries=places&v=weekly&channel=2`
+        script.src = `https://maps.googleapis.com/maps/api/js?key=${process.env.REACT_APP_GOOGLE_API_KEY}&libraries=places&v=weekly&channel=2`
         script.async = true
         body.appendChild(script)
         script.addEventListener('load', () => {
@@ -79,7 +77,7 @@ export default function Search() {
                 id="pac-input"
                 className="controls"
                 type="text"
-                placeholder="Introduzir cidade/região"
+                placeholder="Search for city/region"
                 value={address}
                 onChange={(event) => setAddress(event.target.value)}
             />

@@ -61,27 +61,11 @@ export default function DailyWeather(props) {
     const weekDaysArray = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'];
 
     function convertTimestamp(timestamp) {
-        var d = new Date(timestamp * 1000),
-            yyyy = d.getFullYear(),
-            mm = ('0' + (d.getMonth() + 1)).slice(-2),  
-            dd = ('0' + d.getDate()).slice(-2),
-            hh = d.getHours(),
-            h = hh,
-            min = ('0' + d.getMinutes()).slice(-2),
-            ampm = 'AM',
-            time;
-
-        if (hh > 12) {
-            h = hh - 12;
-            ampm = 'PM';
-        } else if (hh === 12) {
-            h = 12;
-            ampm = 'PM';
-        } else if (hh == 0) {
-            h = 12;
-        }
-
-        time = dd + '/' + mm;
+        var d = new Date(timestamp * 1000);
+        let mm = ('0' + (d.getMonth() + 1)).slice(-2);
+        let dd = ('0' + d.getDate()).slice(-2);
+        
+        let time = dd + '/' + mm;
         return time;
     }
 
@@ -115,13 +99,13 @@ export default function DailyWeather(props) {
             <TabPanel value={value} index={0}>
                 <div className="row">
                     {props.dailyWeather.map((item, index) => {
-                        if (index == 0 || index >= 6) return;
+                        if (index === 0 || index >= 6) return(<div key={index}></div>);
                         return (
                             <div key={index} className="col-12 p-2 col-md-6">
                                 <Card style={{ width: '100%' }}>
                                     <Card.Body>
                                         <div className="d-flex">
-                                                <h6 style={{marginRight:10}} className="my-auto">{getWeekDay(item.dt)}, {convertTimestamp(item.dt)}  </h6>
+                                            <h6 style={{ marginRight: 10 }} className="my-auto">{getWeekDay(item.dt)}, {convertTimestamp(item.dt)}  </h6>
 
                                             <div style={{ marginLeft: 5 }} className="my-auto">
                                                 <h3 style={{ display: 'inline' }} className="">{item.temp.max}<span>&#8451;</span></h3>
@@ -129,7 +113,7 @@ export default function DailyWeather(props) {
                                                 <h6 style={{ display: 'inline', marginLeft: 5 }} className="text-muted">{item.temp.min}<span>&#8451;</span></h6>
                                             </div>
 
-                                            <p style={{marginLeft:30}} className="my-auto text-capitalize">
+                                            <p style={{ marginLeft: 30 }} className="my-auto text-capitalize">
                                                 {item.weather[0].description}
                                             </p>
                                         </div>
@@ -141,10 +125,10 @@ export default function DailyWeather(props) {
                 </div>
             </TabPanel>
             <TabPanel value={value} index={1}>
-                <WeatherCharts weather={props.dailyWeather}/>
+                <WeatherCharts weather={props.dailyWeather} />
             </TabPanel>
             <TabPanel value={value} index={2}>
-               
+
             </TabPanel>
         </div>
     );
